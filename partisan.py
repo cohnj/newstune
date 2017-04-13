@@ -8,19 +8,16 @@ words = ["trump","lying","left","corrupt","liberal","islam","race","money","coun
 		"terrorism","rigged","alt-right","bigly","birther","breitbart","fake","divide","division",
 		"wound","wing","brexit","isis","obama"]
 words = set(words)
-
-
 conn = Connection().newstune
 articles = conn.articles.find()
-
 filtered = []
-
 for article in articles:
-	text = set(unicodedata.normalize('NFKD',articles['text'].lower()).encode('ascii','ignore').split())
-    score = len(text.intersection(words))	
+	text = set(unicodedata.normalize('NFKD',article['text'].lower()).encode('ascii','ignore').split())
+	score = len(text.intersection(words))	
 	filtered.append((score,article['title']))
-	filtered.sort()
-filtered = list(set(fitered))
+filtered = list(set(filtered))
+filtered.sort()
+
 
 # for article in articles:
 # 	score = 0
